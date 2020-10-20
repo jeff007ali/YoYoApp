@@ -1,4 +1,4 @@
-﻿   @page "/"
+﻿@page "/"
 @inject HttpClient Http
 <div class="d-flex flex-row">
     <div class="span-svg"><svg focusable="false" viewBox="0 0 24 24" height="48px" width="48px"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" transform="rotate(90 12 12)"></path></svg></div>
@@ -21,8 +21,8 @@ else
             </div>
         </div>
     </div>
-    <br/>
-    
+    <br />
+
     <table class="table ov-border-top">
         <tbody>
             <tr>
@@ -205,7 +205,7 @@ else
             {
                 if (!player.IsStopped)
                 {
-                    player.IsStopped = !player.IsStopped;
+                    player.IsStopped = true;
                     player.LevelCompleted = shuttles[shuttles.Length - 1].SpeedLevel;
                     player.ShuttleCompleted = shuttles[shuttles.Length - 1].ShuttleNo;
                     player.resultIndex = possibleResults.Count - 1;
@@ -269,20 +269,20 @@ else
     private void warnPlayer(Guid id)
     {
         var player = players.First(x => x.Id == id);
-        player.IsWarned = !player.IsWarned;
+        player.IsWarned = true;
     }
 
     private void stopTracking(Guid id)
     {
         var player = players.First(x => x.Id == id);
-        player.IsStopped = !player.IsStopped;
+        player.IsStopped = true;
 
         var completedIndex = index - 2;
         if (completedIndex >= 0)
         {
             player.LevelCompleted = shuttles[completedIndex].SpeedLevel;
             player.ShuttleCompleted = shuttles[completedIndex].ShuttleNo;
-            player.resultIndex = completedIndex + 1; // +1 because possibleResults is started with "0-0" string and it is shifted right by 1 
+            player.resultIndex = completedIndex + 1; // +1 because possibleResults is started with "0-0" string and it is shifted right by 1
         }
         else
         {

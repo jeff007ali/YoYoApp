@@ -169,7 +169,6 @@ E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\Razor\_Imports.raz
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\YoYoApp.RazorTargetAssemblyInfo.cache
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\YoYoApp.csproj.CopyComplete
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\blazor\unlinked.output
-E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\integrity\S7WS1_wSkg_unLFmflEvyaxZY0tI1W-HUhT1ST7WF0c=.hash
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\integrity\99dseBOagY3mzu5Y8Eqm8gRI_o8QbbCp7R2Ew9bQ_5E=.hash
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\integrity\ZxXy75PYbzJxNfAc-SAP1nUYm4gt1jSaOpFnBb9m85M=.hash
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\integrity\BaZPMj95_YNe3G4ckTGD6szZFwZeA2MOHn91zTGKDeU=.hash
@@ -221,13 +220,11 @@ E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\integrity\_kkwUt5L
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\integrity\rvTW0d54uLW0iDMAX30lpmr9f8uHoS3YYkEU5zNGhyc=.hash
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\integrity\LqwA2Rpm96Ualk0IhLZar87kfRCyKHzHTeTt2jYhm7M=.hash
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\integrity\czNf3btAeBW-vvID5LAfgcsNZ_GM3ssVuPaMflcg0rs=.hash
-E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\integrity\MePtFHuzwd1xhug783IIkogwYdFk9WKoNGfS4xpwjus=.hash
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\integrity\mPoqx7XczFHBWk3gRNn0hc9ekG1OvkKY4XiKRY5Mj5U=.hash
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\integrity\3S0qzYaBEKOBXarzVLNzNAFXlwJr6nI3lFlYUpQTPH8=.hash
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\integrity\UC-3Rm1NkdNdlIrzYARo_dO-HDlS5mhPxo0IQv7kma8=.hash
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\integrity\SPHS1EAPAcMFN4TEIUYl3FWtoCQTsNJch0XVGgok1eE=.hash
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\blazor\blazor.boot.json
-E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\integrity\_jCafkQVe0JFyKl0F6IIXDWSBQE91S2oaKGr7EmeaZo=.hash
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\compressed\_framework\_bin\YoYoApp.dll.gz
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\compressed\_framework\_bin\System.Net.Http.Json.dll.gz
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\compressed\_framework\_bin\System.Buffers.dll.gz
@@ -348,3 +345,6 @@ E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\staticwebassets\Yo
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\staticwebassets\YoYoApp.StaticWebAssets.xml
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\YoYoApp.dll
 E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\YoYoApp.pdb
+E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\integrity\jE14vscBzZ--iFoDT6LlTn6k1kg9o3T8dIZwOX0mXpg=.hash
+E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\integrity\mKQvMKApUE7A7PiDiGyYMu4mffUaf-foTgoMIhWkR9w=.hash
+E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\obj\Debug\netstandard2.1\integrity\AhTa-7zafLWxNqYeCY5qP8m6uyL-vw8DWCGKOE4XJtA=.hash

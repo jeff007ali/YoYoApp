@@ -1,7 +1,7 @@
 {
   "FilesToCompress": [
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\S7WS1_wSkg_unLFmflEvyaxZY0tI1W-HUhT1ST7WF0c=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\jE14vscBzZ--iFoDT6LlTn6k1kg9o3T8dIZwOX0mXpg=.hash",
       "Source": "E:\\WorkSpace\\C Sharp\\YoYoApp\\YoYoApp\\obj\\Debug\\netstandard2.1\\blazor\\unlinked\\YoYoApp.dll",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/YoYoApp.dll.br"
     },
@@ -261,7 +261,7 @@
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.JSInterop.WebAssembly.dll.br"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\MePtFHuzwd1xhug783IIkogwYdFk9WKoNGfS4xpwjus=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\mKQvMKApUE7A7PiDiGyYMu4mffUaf-foTgoMIhWkR9w=.hash",
       "Source": "E:\\WorkSpace\\C Sharp\\YoYoApp\\YoYoApp\\obj\\Debug\\netstandard2.1\\blazor\\unlinked\\YoYoApp.pdb",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/YoYoApp.pdb.br"
     },
@@ -286,7 +286,7 @@
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/blazor.webassembly.js.br"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\_jCafkQVe0JFyKl0F6IIXDWSBQE91S2oaKGr7EmeaZo=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\AhTa-7zafLWxNqYeCY5qP8m6uyL-vw8DWCGKOE4XJtA=.hash",
       "Source": "E:\\WorkSpace\\C Sharp\\YoYoApp\\YoYoApp\\obj\\Debug\\netstandard2.1\\blazor\\blazor.boot.json",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/blazor.boot.json.br"
     }
