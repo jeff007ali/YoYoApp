@@ -1,4 +1,4 @@
- YoYoApp/bin/Debug/*
+ YoYoApp/bin/*
  YoYoApp/wwwroot/debug.log
  YoYoApp/obj/*
  
