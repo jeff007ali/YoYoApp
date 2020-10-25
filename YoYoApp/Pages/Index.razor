@@ -158,6 +158,7 @@ else
     private TimeSpan shuttleTimeLimit = new TimeSpan();
 
     private bool isStarted = false;
+    private bool isCompleted = false;
 
     private string timerDeg = "transform: rotate(0deg);";
     private bool gt180 = false;
@@ -180,7 +181,7 @@ else
 
     private void updateValues()
     {
-        if (index < shuttles.Length)
+        if (!isCompleted && index < shuttles.Length)
         {
             mainBtnTxt = (MarkupString)string.Format("<p class=\"little-bold\">Level {0}<br />Shuttle {1}</p><p class=\"small-font\">{2} km/h</p>", shuttles[index].SpeedLevel, shuttles[index].ShuttleNo, shuttles[index].Speed);
             //runTimeLimit = elapsedTime.Add(shuttles[index].LevelTimeSpan);
@@ -198,8 +199,9 @@ else
         {
             mainBtnTxt = (MarkupString)"Test Complete";
             timerDeg = "transform: rotate(360deg);";
-            //index = 0;
-            //isStarted = false;
+            gt180 = true;
+            // isStarted = false;
+            isCompleted = true;
 
             foreach (var player in players)
             {
@@ -230,7 +232,7 @@ else
         remainingShuttleTime = shuttleTimeLimit.Subtract(elapsedTime);
         totalShuttleTime = shuttleTimeLimit.Subtract(elapsedTime);
 
-        while (elapsedTime < shuttleTimeLimit)
+        while (!isCompleted && elapsedTime < shuttleTimeLimit)
         {
             //mainBtnTxt = (MarkupString)"Rest time";
             elapsedTime = elapsedTime.Add(new TimeSpan(0, 0, 1));
@@ -289,6 +291,13 @@ else
             player.LevelCompleted = "0";
             player.ShuttleCompleted = "0";
             player.resultIndex = 0;
+        }
+
+        // Check if any player is still running
+        var playerExist = players.Any(x => x.IsStopped == false);
+        if (!playerExist)
+        {
+            isCompleted = true;
         }
 
     }
