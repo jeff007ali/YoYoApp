@@ -65,20 +65,22 @@ else
                         }
                         else
                         {
-                            <label class="result-card">@possibleResults[players[a].resultIndex]</label>
+                            <div style="width: 60px;">
+                                <label class="result-card">@possibleResults[players[a].resultIndex]</label>
 
-                            @if (players[a].IsEditable)
-                            {
-                                <span class="span-svg" @onclick="@(() => editResult(players[a].Id))"><svg focusable="false" viewBox="0 0 24 24" height="20px" width="20px"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" transform="rotate(180 12 12)"></path></svg></span>
-                                <br />
+                                @if (players[a].IsEditable)
+                                {
+                                    <span class="span-svg" @onclick="@(() => editResult(players[a].Id))"><svg focusable="false" viewBox="0 0 24 24" height="20px" width="20px"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" transform="rotate(180 12 12)"></path></svg></span>
+                                    <br />
 
-                                <button class="edit-btn" @onclick="@(() => minusResult(players[a].Id))">-</button>
-                                <button class="edit-btn" @onclick="@(() => plusResult(players[a].Id))">+</button>
-                            }
-                            else
-                            {
-                                <span class="span-svg" @onclick="@(() => editResult(players[a].Id))"><svg focusable="false" viewBox="0 0 24 24" height="20px" width="20px"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></span>
-                            }
+                                    <button class="edit-btn" @onclick="@(() => minusResult(players[a].Id))">-</button>
+                                    <button class="edit-btn" @onclick="@(() => plusResult(players[a].Id))">+</button>
+                                }
+                                else
+                                {
+                                    <span class="span-svg" @onclick="@(() => editResult(players[a].Id))"><svg focusable="false" viewBox="0 0 24 24" height="20px" width="20px"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></span>
+                                }
+                            </div>
                         }
                     </td>
 
@@ -197,7 +199,7 @@ else
         }
         else
         {
-            mainBtnTxt = (MarkupString)"Test Complete";
+            mainBtnTxt = (MarkupString)"<b>Test Complete</b>";
             timerDeg = "transform: rotate(360deg);";
             gt180 = true;
             // isStarted = false;
