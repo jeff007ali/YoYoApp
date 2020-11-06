@@ -1,0 +1,373 @@
+﻿   @page "/"
+@inject HttpClient Http
+<div class="d-flex flex-row">
+    <div class="span-svg"><svg focusable="false" viewBox="0 0 24 24" height="48px" width="48px"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" transform="rotate(90 12 12)"></path></svg></div>
+    <div class="flex-grow-1 text-center span-header">YoYo Test</div>
+</div>
+
+@if (shuttles == null || players == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="@(gt180 ? "progress-pie-chart gt-180" : "progress-pie-chart" )" @onclick="startShuttle">
+        <div class="ppc-progress">
+            <div class="ppc-progress-fill" style="@timerDeg"></div>
+        </div>
+        <div class="ppc-percents">
+            <div class="pcc-percents-wrapper">
+                <span>@mainBtnTxt</span>
+            </div>
+        </div>
+    </div>
+    <br/>
+    
+    <table class="table ov-border-top">
+        <tbody>
+            <tr>
+                <td class="border-right">
+                    <p class="text-center small-font">NEXT SHUTTLE</p>
+                    <p class="text-center little-bold">@remainingShuttleTime.Seconds s</p>
+                </td>
+                <td class="border-right">
+                    <p class="text-center small-font">TOTAL TIME</p>
+                    <p class="text-center little-bold">@(elapsedTime.Minutes + ":" + elapsedTime.Seconds) m</p>
+                </td>
+                <td>
+                    <p class="text-center small-font">TOTAL DISTANCE</p>
+                    <p class="text-center little-bold">@totalDistance m</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h5 class="player-table-text">Track</h5>
+    <table class="table table-hover player-table-text">
+        <tbody>
+            @for (var i = 0; i < players.Length; i++)
+            {
+                var a = i;
+                <tr>
+                    <td>
+                        @(a+1).
+                    </td>
+                    <td class="text-nowrap">
+                        @players[a].PlayerName
+                    </td>
+                    <td>
+                        <button class="table-btn @(isStarted && !players[a].IsWarned ? "warn-btn" : "warned-btn" ) @(isStarted && !players[a].IsStopped ? "visible" : "invisible" )" @onclick="@(() => warnPlayer(players[a].Id))" disabled="@(players[a].IsWarned ? true : false )">@(players[a].IsWarned ? "Warned" : "Warn" )</button>
+                    </td>
+                    <td>
+                        @if (!players[a].IsStopped)
+                        {
+                            <button class="table-btn stop-btn @(isStarted ? "visible" : "invisible" )" @onclick="@(() => stopTracking(players[a].Id))">Stop</button>
+                        }
+                        else
+                        {
+                            <label class="result-card">@string.Format("{0}-{1}", players[a].LevelCompleted, players[a].ShuttleCompleted)</label>
+
+                            @if (players[a].IsEditable)
+                            {
+                                <span class="span-svg" @onclick="@(() => editResult(players[a].Id))"><svg focusable="false" viewBox="0 0 24 24" height="20px" width="20px"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" transform="rotate(180 12 12)"></path></svg></span>
+                                <br />
+
+                                <div>
+                                    <div>
+                                        <label for="level" class="control-label">Level:</label>
+                                    </div>
+                                    <div>
+                                        <select class="form-control" name="level" @onchange="@(e => levelChange(players[a].Id, e))">
+                                            @for (var j = 0; j < levels.Length; j++)
+                                            {
+                                                @if (players[a].LevelCompleted == levels[j])
+                                                {
+                                                    <option selected>@levels[j]</option>
+                                                }
+                                                else
+                                                {
+                                                    <option>@levels[j]</option>
+                                                }
+
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                var shuttleNos = levelShuttleDict[players[a].LevelCompleted].ToArray();
+                                <br />
+                                <div class="col-xs-8">
+                                    <div class="col-xs-4">
+                                        <label for="shuttle" class="control-label">Shuttle:</label>
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <select class="form-control" name="shuttle" @onchange="@(e => shuttleChange(players[a].Id, e))">
+                                            @for (var j = 0; j < shuttleNos.Length; j++)
+                                            {
+                                                @if (players[a].ShuttleCompleted == shuttleNos[j])
+                                                {
+                                                    <option selected>@shuttleNos[j]</option>
+                                                }
+                                                else
+                                                {
+                                                    <option>@shuttleNos[j]</option>
+                                                }
+
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <span class="span-svg" @onclick="@(() => editResult(players[a].Id))"><svg focusable="false" viewBox="0 0 24 24" height="20px" width="20px"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></span>
+                            }
+                        }
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private string[] playerString = new string[] { "Ashton Eston", "Bryan Clay", "Dean Karnazes", "Usain Bolt" };
+
+    private Shuttle[] shuttles;
+    private Player[] players;
+
+    private Dictionary<string, List<string>> levelShuttleDict = new Dictionary<string, List<string>>();
+    private string[] levels;
+
+    protected override async Task OnInitializedAsync()
+    {
+        shuttles = await Http.GetFromJsonAsync<Shuttle[]>("sample-data/fitnessrating_beeptest.json");
+        players = playerString.Select(p => new Player { PlayerName = p }).ToArray();
+
+        // Populate level shuttle dictionary to use in edit result
+        levelShuttleDict.Add("0", new List<string>(new string[] { "0" }));
+        foreach (var shuttle in shuttles)
+        {
+            List<string> existing;
+            if (!levelShuttleDict.TryGetValue(shuttle.SpeedLevel, out existing))
+            {
+                existing = new List<string>();
+                levelShuttleDict[shuttle.SpeedLevel] = existing;
+            }
+            // At this point we know that "existing" refers to the relevant list in the
+            // dictionary, one way or another.
+            existing.Add(shuttle.ShuttleNo);
+        }
+
+        levels = levelShuttleDict.Keys.ToArray();
+    }
+
+    public class Shuttle
+    {
+        public string AccumulatedShuttleDistance { get; set; }
+
+        public string SpeedLevel { get; set; }
+
+        public string ShuttleNo { get; set; }
+
+        public string Speed { get; set; }
+
+        public string LevelTime { get; set; }
+
+        public TimeSpan LevelTimeSpan => new TimeSpan(0, 0, (int)Math.Round(Convert.ToDouble(LevelTime)));
+
+        public string CommulativeTime { get; set; }
+
+        public TimeSpan CommulativeTimeSpan => TimeSpan.Parse("00:" + CommulativeTime);
+
+        public string StartTime { get; set; }
+
+        public TimeSpan StartTimeSpan => TimeSpan.Parse("00:" + StartTime);
+    }
+
+    public class Player
+    {
+        public Guid Id { get; set; } = Guid.NewGuid();
+
+        public string PlayerName { get; set; }
+
+        public bool IsWarned { get; set; } = false;
+
+        public bool IsStopped { get; set; } = false;
+
+        public string LevelCompleted { get; set; } = "";
+
+        public string ShuttleCompleted { get; set; } = "";
+
+        public bool IsEditable { get; set; } = false;
+    }
+
+    private int index = 0;
+
+    private MarkupString mainBtnTxt = (MarkupString)"<p class=\"main-play-btn\"> ▶</p>";
+    private TimeSpan remainingShuttleTime = new TimeSpan();
+    private TimeSpan totalShuttleTime = new TimeSpan();
+    private TimeSpan elapsedTime = new TimeSpan();
+    private string totalDistance = "0";
+
+    //private TimeSpan runTimeLimit = new TimeSpan();
+    private TimeSpan shuttleTimeLimit = new TimeSpan();
+
+    private bool isStarted = false;
+
+    private string timerDeg = "transform: rotate(0deg);";
+    private bool gt180 = false;
+
+    private void startShuttle()
+    {
+        if (!isStarted)
+        {
+            // get ready for beeptest session (reset all values)
+            remainingShuttleTime = new TimeSpan();
+            elapsedTime = new TimeSpan();
+            //runTimeLimit = new TimeSpan();
+            shuttleTimeLimit = new TimeSpan();
+            totalDistance = "0";
+
+            updateValues();
+            isStarted = true;
+        }
+    }
+
+    private void updateValues()
+    {
+        if (index < shuttles.Length)
+        {
+            mainBtnTxt = (MarkupString)string.Format("<p class=\"little-bold\">Level {0}<br />Shuttle {1}</p><p class=\"small-font\">{2} km/h</p>", shuttles[index].SpeedLevel, shuttles[index].ShuttleNo, shuttles[index].Speed);
+            //runTimeLimit = elapsedTime.Add(shuttles[index].LevelTimeSpan);
+            //remainingShuttleTime = runTimeLimit.Subtract(elapsedTime);
+            shuttleTimeLimit = shuttles[index].CommulativeTimeSpan;
+            totalDistance = shuttles[index].AccumulatedShuttleDistance;
+            timerDeg = "transform: rotate(0deg);";
+            gt180 = false;
+
+            Timer();
+            index++;
+        }
+        else
+        {
+            mainBtnTxt = (MarkupString)"Test Complete";
+            timerDeg = "transform: rotate(360deg);";
+            //index = 0;
+            //isStarted = false;
+
+            foreach (var player in players)
+            {
+                if (!player.IsStopped)
+                {
+                    player.IsStopped = !player.IsStopped;
+                    player.LevelCompleted = shuttles[shuttles.Length - 1].SpeedLevel;
+                    player.ShuttleCompleted = shuttles[shuttles.Length - 1].ShuttleNo;
+                }
+            }
+        }
+
+    }
+
+    async Task Timer()
+    {
+        // To handle runtime and rest time separately
+        //while (elapsedTime < runTimeLimit)
+        //{
+        //    await Task.Delay(1000);
+        //    elapsedTime = elapsedTime.Add(new TimeSpan(0, 0, 1));
+        //    remainingShuttleTime = runTimeLimit.Subtract(elapsedTime);
+        //    StateHasChanged();
+        //
+        //}
+
+        remainingShuttleTime = shuttleTimeLimit.Subtract(elapsedTime);
+        totalShuttleTime = shuttleTimeLimit.Subtract(elapsedTime);
+
+        while (elapsedTime < shuttleTimeLimit)
+        {
+            //mainBtnTxt = (MarkupString)"Rest time";
+            elapsedTime = elapsedTime.Add(new TimeSpan(0, 0, 1));
+            remainingShuttleTime = shuttleTimeLimit.Subtract(elapsedTime);
+            setDegree(totalShuttleTime, remainingShuttleTime);
+
+            StateHasChanged();
+            await Task.Delay(1000);
+        }
+        await AfterTime();
+        StateHasChanged();
+    }
+
+    Task AfterTime()
+    {
+        // mainBtnTxt = (MarkupString)"Complete timer";
+        updateValues();
+        return Task.CompletedTask;
+    }
+
+    private void setDegree(TimeSpan totalTime, TimeSpan remainingTime)
+    {
+        double totalSeconds = totalTime.TotalSeconds;
+        double remainingSeconds = remainingTime.TotalSeconds;
+        double elapsedSeconds = totalSeconds - remainingSeconds;
+
+        double resDeg = ((360 * elapsedSeconds) / totalSeconds);
+
+        if (resDeg > 180)
+        {
+            gt180 = true;
+        }
+        timerDeg = string.Format("transform: rotate({0}deg);", resDeg.ToString());
+    }
+
+    private void warnPlayer(Guid id)
+    {
+        var player = players.First(x => x.Id == id);
+        player.IsWarned = !player.IsWarned;
+    }
+
+    private void stopTracking(Guid id)
+    {
+        var player = players.First(x => x.Id == id);
+        player.IsStopped = !player.IsStopped;
+
+        player.LevelCompleted = index.ToString();
+
+        var completedIndex = index - 2;
+        if (completedIndex >= 0)
+        {
+            player.LevelCompleted = shuttles[index - 2].SpeedLevel;
+            player.ShuttleCompleted = shuttles[index - 2].ShuttleNo;
+        }
+        else
+        {
+            player.LevelCompleted = "0";
+            player.ShuttleCompleted = "0";
+        }
+
+    }
+
+    private void editResult(Guid id)
+    {
+        var player = players.First(x => x.Id == id);
+        player.IsEditable = !player.IsEditable;
+    }
+
+    private void levelChange(Guid id, ChangeEventArgs e)
+    {
+        var player = players.First(x => x.Id == id);
+        player.LevelCompleted = e.Value.ToString();
+        if (!levelShuttleDict[player.LevelCompleted].Contains(player.ShuttleCompleted))
+        {
+            player.ShuttleCompleted = levelShuttleDict[player.LevelCompleted].First();
+        }
+    }
+
+    private void shuttleChange(Guid id, ChangeEventArgs e)
+    {
+        var player = players.First(x => x.Id == id);
+        player.ShuttleCompleted = e.Value.ToString();
+    }
+}
