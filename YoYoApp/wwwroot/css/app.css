@@ -5,6 +5,10 @@ html, body {
     font-family: Quicksand, 'Segoe UI', Arial, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+button {
+    outline: none !important;
+}
+
 a, .btn-link {
     color: #0366d6;
 }
@@ -167,6 +171,16 @@ app {
 
 .stop-btn {
     background-color: #e38888;
+}
+
+.edit-btn {
+    border-radius: 50%;
+    font-weight: bold;
+    border: 0px solid;
+    color: ghostwhite;
+    background-color: #cccccc;
+    font-size: 1rem;
+    width: 26px;
 }
 
 .main {

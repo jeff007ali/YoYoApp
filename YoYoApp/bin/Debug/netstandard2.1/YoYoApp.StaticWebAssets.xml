@@ -1,4 +1,0 @@
-﻿<StaticWebAssets Version="1.0">
-  <ContentRoot BasePath="/" Path="E:\WorkSpace\C Sharp\YoYoApp\YoYoApp\bin\Debug\netstandard2.1\wwwroot\" />
-  <ContentRoot BasePath="_content/Microsoft.AspNetCore.ProtectedBrowserStorage" Path="C:\Users\Jafar\.nuget\packages\microsoft.aspnetcore.protectedbrowserstorage\0.1.0-alpha.19521.1\build\..\staticwebassets\" />
-</StaticWebAssets>
